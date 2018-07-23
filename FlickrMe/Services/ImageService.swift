@@ -21,25 +21,26 @@ class ImageService{
                     do{
                         currentArray.removeAll()
                         let url = URL(string: endpoint)
-                        let data = try Data(contentsOf: url!)
-                        let json = try JSONSerialization.jsonObject(with: data) as! [String:Any]
-                        let photos = json["photos"] as! [String:Any]
-                        let photo = photos["photo"] as! [[String:Any]]
-                        for one in photo {
-                            let title = one["title"] as! String
-                            let ImageID = one["id"] as! String
-                            let FarmID = one["farm"] as! Int
-                            let ServerID = one["server"] as! String
-                            let SecretID = one["secret"] as! String
-                            let UserID = one["owner"] as! String
-                            let Image = "https://farm\(FarmID).staticflickr.com/\(ServerID)/\(ImageID)_\(SecretID).jpg"
-                            let obj = Cell(title: title, image: Image , owner:UserID)
-                            currentArray.append(obj)
+                        guard url != nil else{return}
+                            let data = try Data(contentsOf: url!)
+                            let json = try JSONSerialization.jsonObject(with: data) as! [String:Any]
+                            let photos = json["photos"] as! [String:Any]
+                            let photo = photos["photo"] as! [[String:Any]]
+                            for one in photo {
+                                let title = one["title"] as! String
+                                let ImageID = one["id"] as! String
+                                let FarmID = one["farm"] as! Int
+                                let ServerID = one["server"] as! String
+                                let SecretID = one["secret"] as! String
+                                let UserID = one["owner"] as! String
+                                let Image = "https://farm\(FarmID).staticflickr.com/\(ServerID)/\(ImageID)_\(SecretID).jpg"
+                                let obj = Cell(title: title, image: Image , owner:UserID)
+                                currentArray.append(obj)
+                            }
+                            completionHandler(currentArray)
+                        }catch{
+                            print(error.localizedDescription)
                         }
-                        completionHandler(currentArray)
-                    }catch{
-                        print(error.localizedDescription)
-                    }
                 }
     }
 }
