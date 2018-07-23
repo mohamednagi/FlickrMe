@@ -1,0 +1,6 @@
+framework module Pods_FlickrMe {
+  umbrella header "Pods-FlickrMe-umbrella.h"
+
+  export *
+  module * { export * }
+}
