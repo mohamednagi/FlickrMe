@@ -12,6 +12,5 @@ class SecondTableViewCell: UITableViewCell {
 
     @IBOutlet weak var Title: UILabel!
     @IBOutlet weak var ImageView: UIImageView!
-    
 
 }

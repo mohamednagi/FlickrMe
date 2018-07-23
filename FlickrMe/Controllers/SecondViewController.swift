@@ -24,6 +24,7 @@ class SecondViewController: UIViewController {
         navigationItem.title = "Related Images"
     }
     
+    // getting a specified data from API for a specified user
     func GettinData(){
         ImageService.getData(searchTerm: "", user_id: user_ID!) { (returnedArray) in
             currentArray = returnedArray
@@ -34,6 +35,7 @@ class SecondViewController: UIViewController {
     }
 }
 
+// setting up second tableView for the related user id
 extension SecondViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currentArray.count

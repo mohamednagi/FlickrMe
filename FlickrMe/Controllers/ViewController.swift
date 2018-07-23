@@ -15,11 +15,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var TableView: UITableView!
     @IBOutlet weak var SearchBar: UISearchBar!
     
+    // setting the title for navigation controller
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "FlickrMe"
     }
     
+    // reload tableview and changing colors of it depending on the target
     override func viewDidLoad() {
         super.viewDidLoad()
         TableView.reloadData()
@@ -34,6 +36,8 @@ class ViewController: UIViewController {
     }
 }
 
+
+// setting up our first table view
 extension ViewController:UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,7 +69,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource,UISearchBarDe
             nextViewController.user_ID = sender as! String
         }
     }
-    
+    // search delegate method ,, you have to write a word first to get the related data REMEMBER THAT
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         currentArray.removeAll()
         ImageService.getData(searchTerm: searchBar.text!) { (returnedArray) in

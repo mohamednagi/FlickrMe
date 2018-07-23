@@ -10,6 +10,8 @@ import UIKit
 
 class ImageService{
     
+    // getting the data from API & putting it in an array
+    
     static func getData(searchTerm:String,user_id:String = "",completionHandler: @escaping (_ array:[Cell]) -> ()){
         var endpoint = ""
         if user_id != "" {
