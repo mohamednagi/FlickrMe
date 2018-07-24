@@ -19,6 +19,13 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "FlickrMe"
+        #if FlickrMe
+            // Old Target
+            navigationController?.navigationBar.barTintColor = UIColor.darkGray
+        #else
+            // New Target
+            navigationController?.navigationBar.barTintColor = UIColor.black
+        #endif
     }
     
     // reload tableview and changing colors of it depending on the target
