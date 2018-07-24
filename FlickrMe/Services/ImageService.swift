@@ -12,12 +12,16 @@ class ImageService{
     
     // getting the data from API & putting it in an array
     
-    static func getData(searchTerm:String,user_id:String = "",completionHandler: @escaping (_ array:[Cell]) -> ()){
+    static func getData(begin:Bool=false,searchTerm:String,user_id:String = "",completionHandler: @escaping (_ array:[Cell]) -> ()){
         var endpoint = ""
+        if begin != false {
+            endpoint = "https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=\(apiKey)&format=json&nojsoncallback=1"
+        }else {
         if user_id != "" {
             endpoint = "https://api.flickr.com/services/rest/?method=flickr.people.getPublicPhotos&api_key=\(apiKey)&user_id=\(user_id)&format=json&nojsoncallback=1"
         }else{
              endpoint = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(apiKey)&text=\(searchTerm)&per_page=40&format=json&nojsoncallback=1"
+        }
         }
                 DispatchQueue.main.async {
                     do{

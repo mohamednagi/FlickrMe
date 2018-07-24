@@ -6,5 +6,6 @@ target 'FlickrMe' do
   use_frameworks!
 
   # Pods for FlickrMe
+pod 'SVProgressHUD'
 pod 'Kingfisher'
 end

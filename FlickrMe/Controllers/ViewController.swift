@@ -25,7 +25,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         TableView.reloadData()
-        
+        ImageService.getData(begin: true, searchTerm: "", user_id: "") { (returnedArray) in
+            currentArray=returnedArray
+            DispatchQueue.main.async {
+                self.TableView.reloadData()
+            }
+        }
         #if FlickrMe
             // Old Target
             TableView.backgroundColor = UIColor.darkGray
@@ -69,7 +74,7 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource,UISearchBarDe
             nextViewController.user_ID = sender as! String
         }
     }
-    // search delegate method ,, you have to write a word first to get the related data REMEMBER THAT
+    // search delegate method ,, 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         currentArray.removeAll()
         ImageService.getData(searchTerm: searchBar.text!) { (returnedArray) in
@@ -78,5 +83,17 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource,UISearchBarDe
                             self.TableView.reloadData()
                         }
                     }
+                }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty{
+            ImageService.getData(begin: true, searchTerm: searchText, completionHandler: { (returnedArray) in
+                currentArray = returnedArray
+            })
+            DispatchQueue.main.async {
+                self.TableView.reloadData()
+            }
+
+        }
     }
 }
