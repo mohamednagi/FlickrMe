@@ -12,3 +12,4 @@ import Foundation
 
 let apiKey = "52752cdfbd499575a5ce6126404d32be"
 var currentArray = [Cell]()
+

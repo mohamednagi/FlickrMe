@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var TableView: UITableView!
     @IBOutlet weak var SearchBar: UISearchBar!
     
-    // setting the title for navigation controller
+    // setting the title for navigation controller and changing colors of it's bar depending on the target
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "FlickrMe"
@@ -24,11 +24,11 @@ class ViewController: UIViewController {
             navigationController?.navigationBar.barTintColor = UIColor.darkGray
         #else
             // New Target
-            navigationController?.navigationBar.barTintColor = UIColor.black
+            navigationController?.navigationBar.barTintColor = UIColor.white
         #endif
     }
     
-    // reload tableview and changing colors of it depending on the target
+    // get recent photos from flickr
     override func viewDidLoad() {
         super.viewDidLoad()
         TableView.reloadData()
@@ -38,13 +38,6 @@ class ViewController: UIViewController {
                 self.TableView.reloadData()
             }
         }
-        #if FlickrMe
-            // Old Target
-            TableView.backgroundColor = UIColor.darkGray
-        #else
-            // New Target
-             TableView.backgroundColor = UIColor.black
-        #endif
     }
 }
 
@@ -81,7 +74,8 @@ extension ViewController:UITableViewDelegate,UITableViewDataSource,UISearchBarDe
             nextViewController.user_ID = sender as! String
         }
     }
-    // search delegate method ,, 
+    
+    // search delegate method ,, for recent and specified images
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         currentArray.removeAll()
         ImageService.getData(searchTerm: searchBar.text!) { (returnedArray) in
